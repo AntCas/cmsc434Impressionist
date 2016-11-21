@@ -188,9 +188,15 @@ public class ImpressionistView extends View {
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                _paint.setColor(Color.CYAN);
-                // Draw  Rectangle
-                _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                // Set the paint color
+                Bitmap imageViewBitmap = _imageView.getDrawingCache();
+                if (imageViewBitmap != null && touchY < imageViewBitmap.getHeight() && touchX < imageViewBitmap.getWidth() && touchY > 0 && touchX > 0) {
+                    int colorAtTouchPixelInImage = imageViewBitmap.getPixel((int)touchX, (int)touchY);
+                    _paint.setColor(colorAtTouchPixelInImage);
+
+                    // Draw  Rectangle
+                    _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 break;

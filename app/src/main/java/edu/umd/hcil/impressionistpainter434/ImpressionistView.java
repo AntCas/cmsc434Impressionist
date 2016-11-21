@@ -129,7 +129,8 @@ public class ImpressionistView extends View {
 
     /**
      * Clears the painting
-     * source: https://github.com/jonfroehlich/CMSC434DrawTest
+     * Modified From:
+     *  - https://github.com/jonfroehlich/CMSC434DrawTest
      */
     public void clearPainting(){
         //TODO
@@ -153,16 +154,11 @@ public class ImpressionistView extends View {
 
         // Draw the border. Helpful to see the size of the bitmap in the ImageView
         canvas.drawRect(getBitmapPositionInsideImageView(_imageView), _paintBorder);
-
-//        for (DrawRect drawRect : _drawRectList) {
-//            drawRect.drawDrawRect(_offScreenCanvas);
-//        }
-
     }
 
     /*
      * Modified From:
-     *  - http://stackoverflow.com/questions/7807360/how-to-get-pixel-colour-in-android
+     *  - https://github.com/jonfroehlich/CMSC434DrawTest
      */
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent){

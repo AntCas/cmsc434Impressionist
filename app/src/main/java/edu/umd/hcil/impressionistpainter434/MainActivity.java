@@ -65,6 +65,18 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     }
 
+    public void onButtonClickSavePainting(View v) {
+        new AlertDialog.Builder(this)
+                .setTitle("Save Painting?")
+                .setMessage("Do you really want to save your painting?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Toast.makeText(MainActivity.this, "Painting Saved", Toast.LENGTH_SHORT).show();
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
     public void onButtonClickClear(View v) {
         new AlertDialog.Builder(this)
                 .setTitle("Clear Painting?")

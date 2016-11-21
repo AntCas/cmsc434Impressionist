@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:orientation="horizontal"
-            android:layout_weight="0.1">
+            android:layout_weight="0.1"
+            android:weightSum="1">
 
             <Button
                 android:layout_width="wrap_content"
@@ -73,6 +74,14 @@
                 android:text="Clear"
                 android:id="@+id/buttonClear"
                 android:onClick="onButtonClickClear"/>
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="Save Painting"
+                android:id="@+id/buttonSavePainting"
+                android:onClick="onButtonClickSavePainting"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.44" />
 
 
         </LinearLayout>

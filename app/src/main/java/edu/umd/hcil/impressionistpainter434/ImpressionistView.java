@@ -25,6 +25,7 @@ import java.util.Random;
  * Created by jon on 3/20/2016.
  */
 public class ImpressionistView extends View {
+    private static final int BRUSH_RADIUS = 25;
 
     private ImageView _imageView;
 
@@ -138,7 +139,7 @@ public class ImpressionistView extends View {
         super.onDraw(canvas);
 
         if(_offScreenBitmap != null) {
-            canvas.drawBitmap(_offScreenBitmap, 0, 0, _paint);
+            canvas.drawBitmap(_offScreenBitmap, 0, 0, null);
         }
 
         // Draw the border. Helpful to see the size of the bitmap in the ImageView
@@ -161,30 +162,44 @@ public class ImpressionistView extends View {
         //Basically, the way this works is to listen for Touch Down and Touch Move events and determine where those
         //touch locations correspond to the bitmap in the ImageView. You can then grab info about the bitmap--like the pixel color--
         //at that location
-        Rect img_rect = new Rect(this.getBitmapPositionInsideImageView(_imageView));
-        int touchx = (int) motionEvent.getX();
-        int touchy = (int) motionEvent.getY();
-        Rect new_rect = new Rect(touchx, touchy, touchx + 20, touchy + 20);
-//        ImageView imageView = _imageView;
-//        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-//        int pixel = bitmap.getPixel(new_rect.centerX(), new_rect.centerY());
+//        Rect img_rect = new Rect(this.getBitmapPositionInsideImageView(_imageView));
+//        int touchx = (int) motionEvent.getX();
+//        int touchy = (int) motionEvent.getY();
+//        Rect new_rect = new Rect(touchx, touchy, touchx + 20, touchy + 20);
+////        ImageView imageView = _imageView;
+////        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+////        int pixel = bitmap.getPixel(new_rect.centerX(), new_rect.centerY());
+//
+//
+//        Bitmap imageViewBitmap = _imageView.getDrawingCache();
+//       // int pixel = imageViewBitmap.getPixel(img_rect.centerX(), img_rect.centerY());
+//        int pixel = imageViewBitmap.getPixel(touchx, touchy);
+//        _paint.setColor(pixel);
+//        //int pixel = _imageView.getPixel(img_rect.centerX(), img_rect.centerY());
+//        Paint drawPaint = new Paint(pixel);
+//        DrawRect drawRect = new DrawRect(new_rect, drawPaint);
+//        _drawRectList.add(drawRect);
+//        invalidate();
 
+        float touchX = motionEvent.getX();
+        float touchY = motionEvent.getY();
+        int brushRadius = BRUSH_RADIUS;
 
-        Bitmap imageViewBitmap = _imageView.getDrawingCache();
-       // int pixel = imageViewBitmap.getPixel(img_rect.centerX(), img_rect.centerY());
-        int pixel = imageViewBitmap.getPixel(touchx, touchy);
-        _paint.setColor(pixel);
-        //int pixel = _imageView.getPixel(img_rect.centerX(), img_rect.centerY());
-        Paint drawPaint = new Paint(pixel);
-        DrawRect drawRect = new DrawRect(new_rect, drawPaint);
-        _drawRectList.add(drawRect);
+        switch(motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                _paint.setColor(Color.CYAN);
+                // Draw  Rectangle
+                _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+
         invalidate();
 
         return true;
     }
-
-
-
 
     /**
      * This method is useful to determine the bitmap position within the Image View. It's not needed for anything else

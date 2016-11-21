@@ -129,9 +129,18 @@ public class ImpressionistView extends View {
 
     /**
      * Clears the painting
+     * source: https://github.com/jonfroehlich/CMSC434DrawTest
      */
     public void clearPainting(){
         //TODO
+        if(_offScreenCanvas != null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            paint.setStyle(Paint.Style.FILL);
+            _offScreenCanvas.drawRect(0, 0, this.getWidth(), this.getHeight(), paint);
+        }
+
+        invalidate();
     }
 
     @Override
@@ -162,24 +171,6 @@ public class ImpressionistView extends View {
         //Basically, the way this works is to listen for Touch Down and Touch Move events and determine where those
         //touch locations correspond to the bitmap in the ImageView. You can then grab info about the bitmap--like the pixel color--
         //at that location
-//        Rect img_rect = new Rect(this.getBitmapPositionInsideImageView(_imageView));
-//        int touchx = (int) motionEvent.getX();
-//        int touchy = (int) motionEvent.getY();
-//        Rect new_rect = new Rect(touchx, touchy, touchx + 20, touchy + 20);
-////        ImageView imageView = _imageView;
-////        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-////        int pixel = bitmap.getPixel(new_rect.centerX(), new_rect.centerY());
-//
-//
-//        Bitmap imageViewBitmap = _imageView.getDrawingCache();
-//       // int pixel = imageViewBitmap.getPixel(img_rect.centerX(), img_rect.centerY());
-//        int pixel = imageViewBitmap.getPixel(touchx, touchy);
-//        _paint.setColor(pixel);
-//        //int pixel = _imageView.getPixel(img_rect.centerX(), img_rect.centerY());
-//        Paint drawPaint = new Paint(pixel);
-//        DrawRect drawRect = new DrawRect(new_rect, drawPaint);
-//        _drawRectList.add(drawRect);
-//        invalidate();
 
         float touchX = motionEvent.getX();
         float touchY = motionEvent.getY();
@@ -188,12 +179,10 @@ public class ImpressionistView extends View {
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                // Set the paint color
                 Bitmap imageViewBitmap = _imageView.getDrawingCache();
                 if (imageViewBitmap != null && touchY < imageViewBitmap.getHeight() && touchX < imageViewBitmap.getWidth() && touchY > 0 && touchX > 0) {
                     int colorAtTouchPixelInImage = imageViewBitmap.getPixel((int)touchX, (int)touchY);
                     _paint.setColor(colorAtTouchPixelInImage);
-
                     if (_brushType == BrushType.Square) {
                         _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
                     } else if (_brushType == BrushType.Circle) {

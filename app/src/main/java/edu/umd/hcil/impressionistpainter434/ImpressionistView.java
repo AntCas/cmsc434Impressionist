@@ -194,8 +194,13 @@ public class ImpressionistView extends View {
                     int colorAtTouchPixelInImage = imageViewBitmap.getPixel((int)touchX, (int)touchY);
                     _paint.setColor(colorAtTouchPixelInImage);
 
-                    // Draw  Rectangle
-                    _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                    if (_brushType == BrushType.Square) {
+                        _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                    } else if (_brushType == BrushType.Circle) {
+                        _offScreenCanvas.drawCircle(touchX, touchY, brushRadius, _paint);
+                    } else if (_brushType == BrushType.Line) {
+                        _offScreenCanvas.drawLine(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:

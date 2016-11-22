@@ -179,6 +179,7 @@ public class ImpressionistView extends View {
 
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                // Set up the velocity tracker for tracking finger speed
                 if(mVelocityTracker == null) {
                     mVelocityTracker = VelocityTracker.obtain();
                 }
@@ -198,14 +199,14 @@ public class ImpressionistView extends View {
                 float avgSpeed = velocityX + velocityY / 2;
                 float alphaVal = Math.abs(avgSpeed / 1000 * 255);
 
-//                Log.d("", "avgSpeed: " + avgSpeed);
-//                Log.d("", "alphaVal: " + alphaVal);
-
+                // Paint using color from the loaded image
                 Bitmap imageViewBitmap = _imageView.getDrawingCache();
                 if (imageViewBitmap != null && touchY < imageViewBitmap.getHeight() && touchX < imageViewBitmap.getWidth() && touchY > 0 && touchX > 0) {
                     int colorAtTouchPixelInImage = imageViewBitmap.getPixel((int)touchX, (int)touchY);
                     _paint.setColor(colorAtTouchPixelInImage);
                     _paint.setAlpha((int) alphaVal);
+
+                    // Change shape based on current brush selection
                     if (_brushType == BrushType.Square) {
                         _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
                     } else if (_brushType == BrushType.Circle) {

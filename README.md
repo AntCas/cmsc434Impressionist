@@ -23,3 +23,4 @@ Sources
 *  http://stackoverflow.com/a/26930938
 *  https://github.com/jonfroehlich/CMSC434DrawTest
 *  https://developer.android.com/training/gestures/movement.html
+*  http://stackoverflow.com/questions/8560501/android-save-image-into-gallery

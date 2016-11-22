@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast.makeText(MainActivity.this, "Painting Saved", Toast.LENGTH_SHORT).show();
+                        _impressionistView.savePainting();
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }

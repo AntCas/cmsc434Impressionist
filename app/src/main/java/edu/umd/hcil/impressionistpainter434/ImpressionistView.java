@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.content.ContentResolver;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -11,6 +12,9 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -146,6 +150,16 @@ public class ImpressionistView extends View {
         }
 
         invalidate();
+    }
+
+    /**
+     * Saves the painting to the Gallery
+     * Modified From:
+     *  - http://stackoverflow.com/questions/8560501/android-save-image-into-gallery
+     */
+    public void savePainting(){
+        // TODO
+        // MediaStore.Images.Media.insertImage(cr, this.getDrawingCache(), "My Painting" , "A beautiful painting");
     }
 
     @Override

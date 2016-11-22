@@ -1,5 +1,6 @@
 package edu.umd.hcil.impressionistpainter434;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,6 +13,10 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -238,6 +243,32 @@ public class ImpressionistView extends View {
 
         return true;
     }
+
+    /**
+     * Handles Motion Event and implements the Bonus Feature
+     * Modified From:
+     *  - https://developer.android.com/reference/android/hardware/SensorEvent.html
+     */
+    public void onSensorEvent(SensorEvent sensorEvent) {
+        // alpha is calculated as t / (t + dT)
+        // with t, the low-pass filter's time-constant
+        // and dT, the event delivery rate
+
+        final float alpha = 0.8f;
+        float[] gravity = new float[3];
+        float[] linear_acceleration = new float[3];
+
+        gravity[0] = alpha * gravity[0] + (1 - alpha) * sensorEvent.values[0];
+        gravity[1] = alpha * gravity[1] + (1 - alpha) * sensorEvent.values[1];
+        gravity[2] = alpha * gravity[2] + (1 - alpha) * sensorEvent.values[2];
+
+        linear_acceleration[0] = sensorEvent.values[0] - gravity[0];
+        linear_acceleration[1] = sensorEvent.values[1] - gravity[1];
+        linear_acceleration[2] = sensorEvent.values[2] - gravity[2];
+
+        Log.d("linear_accelertation", linear_acceleration.toString());
+    }
+
 
     /**
      * This method is useful to determine the bitmap position within the Image View. It's not needed for anything else

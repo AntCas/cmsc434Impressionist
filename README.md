@@ -9,7 +9,7 @@ Usage
 =====
 
 1. Load an image using the load image button
-2. Select a bruch type and paint
+2. Select a brush type and paint
 3. The color will be chosen from the loaded image
 4. Move your finger faster to increase the opacity, or slower to decrease the opacity.
 5. You can load a new image to get access to new colors while working on the same painting
@@ -19,8 +19,9 @@ Usage
 =======
 Sources
 =======
-*  http://stackoverflow.com/a/15538856
-*  http://stackoverflow.com/a/26930938
-*  https://github.com/jonfroehlich/CMSC434DrawTest
-*  https://developer.android.com/training/gestures/movement.html
-*  http://stackoverflow.com/questions/8560501/android-save-image-into-gallery
+* http://stackoverflow.com/a/15538856
+* http://stackoverflow.com/a/26930938
+* https://github.com/jonfroehlich/CMSC434DrawTest
+* https://developer.android.com/training/gestures/movement.html
+* http://stackoverflow.com/questions/8560501/android-save-image-into-gallery
+* https://developer.android.com/reference/android/hardware/SensorEvent.html

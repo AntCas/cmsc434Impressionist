@@ -11,9 +11,11 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.VelocityTrackerCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -41,6 +43,8 @@ public class ImpressionistView extends View {
     private Paint _paintBorder = new Paint();
     private BrushType _brushType = BrushType.Square;
     private float _minBrushRadius = 5;
+
+    private VelocityTracker mVelocityTracker = null;
 
     private ArrayList<DrawRect> _drawRectList = new ArrayList<DrawRect>();
 
@@ -159,6 +163,7 @@ public class ImpressionistView extends View {
     /*
      * Modified From:
      *  - https://github.com/jonfroehlich/CMSC434DrawTest
+     *  - https://developer.android.com/training/gestures/movement.html
      */
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent){
@@ -174,11 +179,33 @@ public class ImpressionistView extends View {
 
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if(mVelocityTracker == null) {
+                    mVelocityTracker = VelocityTracker.obtain();
+                }
+                else {
+                    mVelocityTracker.clear();
+                }
+                mVelocityTracker.addMovement(motionEvent);
+                break;
             case MotionEvent.ACTION_MOVE:
+                // Set the transparency according to current speed
+                mVelocityTracker.addMovement(motionEvent);
+                mVelocityTracker.computeCurrentVelocity(1000);
+                int index = motionEvent.getActionIndex();
+                int pointerId = motionEvent.getPointerId(index);
+                float velocityX = VelocityTrackerCompat.getXVelocity(mVelocityTracker, pointerId);
+                float velocityY = VelocityTrackerCompat.getYVelocity(mVelocityTracker, pointerId);
+                float avgSpeed = velocityX + velocityY / 2;
+                float alphaVal = Math.abs(avgSpeed / 1000 * 255);
+
+//                Log.d("", "avgSpeed: " + avgSpeed);
+//                Log.d("", "alphaVal: " + alphaVal);
+
                 Bitmap imageViewBitmap = _imageView.getDrawingCache();
                 if (imageViewBitmap != null && touchY < imageViewBitmap.getHeight() && touchX < imageViewBitmap.getWidth() && touchY > 0 && touchX > 0) {
                     int colorAtTouchPixelInImage = imageViewBitmap.getPixel((int)touchX, (int)touchY);
                     _paint.setColor(colorAtTouchPixelInImage);
+                    _paint.setAlpha((int) alphaVal);
                     if (_brushType == BrushType.Square) {
                         _offScreenCanvas.drawRect(touchX - brushRadius, touchY - brushRadius, touchX + brushRadius, touchY + brushRadius, _paint);
                     } else if (_brushType == BrushType.Circle) {

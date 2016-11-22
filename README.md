@@ -15,3 +15,11 @@ Usage
 5. You can load a new image to get access to new colors while working on the same painting
 6. Select "CLEAR" to completely erase your current painting
 7. Select "SAVE PAINTING" to save your current painting to your gallery
+
+=======
+Sources
+=======
+*  http://stackoverflow.com/a/15538856
+*  http://stackoverflow.com/a/26930938
+*  https://github.com/jonfroehlich/CMSC434DrawTest
+*  https://developer.android.com/training/gestures/movement.html

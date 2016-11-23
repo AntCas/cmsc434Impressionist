@@ -164,7 +164,8 @@ public class ImpressionistView extends View {
      */
     public void savePainting(){
         // TODO
-        // MediaStore.Images.Media.insertImage(cr, this.getDrawingCache(), "My Painting" , "A beautiful painting");
+        ContentResolver cr = _imageView.getContext().getContentResolver();
+        MediaStore.Images.Media.insertImage(cr, this._offScreenBitmap, "My Painting" , "A beautiful painting");
     }
 
     @Override

@@ -161,6 +161,8 @@ public class ImpressionistView extends View {
      * Saves the painting to the Gallery
      * Modified From:
      *  - http://stackoverflow.com/questions/8560501/android-save-image-into-gallery
+     *  - http://stackoverflow.com/questions/3750903/how-can-getcontentresolver-be-called-in-android
+     *  - http://www.androiddesignpatterns.com/2012/06/content-resolvers-and-content-providers.html
      */
     public void savePainting(){
         // TODO

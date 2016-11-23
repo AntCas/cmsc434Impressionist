@@ -165,7 +165,6 @@ public class ImpressionistView extends View {
      *  - http://www.androiddesignpatterns.com/2012/06/content-resolvers-and-content-providers.html
      */
     public void savePainting(){
-        // TODO
         ContentResolver cr = _imageView.getContext().getContentResolver();
         MediaStore.Images.Media.insertImage(cr, this._offScreenBitmap, "My Painting" , "A beautiful painting");
     }

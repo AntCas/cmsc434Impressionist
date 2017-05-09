@@ -1,10 +1,8 @@
-====================================
 Impressionist Painter - CMSC434 IA09
 ====================================
 
 An impressionist painting app built for CMSC 434 at UMD Fall 2016.
 
-=====
 Usage
 =====
 
@@ -16,7 +14,6 @@ Usage
 6. Select "CLEAR" to completely erase your current painting
 7. Select "SAVE PAINTING" to save your current painting to your gallery
 
-=======
 Sources
 =======
 * http://stackoverflow.com/a/15538856
